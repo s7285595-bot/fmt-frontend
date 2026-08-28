@@ -1,0 +1,751 @@
+.page {
+min-height: 100vh;
+background: #f8fafc;
+color: #172033;
+}
+
+/* ================================
+HEADER
+================================ */
+
+.header {
+height: 76px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 6%;
+background: rgba(255, 255, 255, 0.96);
+border-bottom: 1px solid #e8edf3;
+position: sticky;
+top: 0;
+z-index: 50;
+backdrop-filter: blur(12px);
+}
+
+.logo {
+font-size: 25px;
+font-weight: 800;
+letter-spacing: -0.8px;
+color: #172033;
+}
+
+.logo span {
+color: #2563eb;
+}
+
+.headerRight {
+display: flex;
+align-items: center;
+gap: 18px;
+}
+
+.welcome {
+font-size: 14px;
+font-weight: 600;
+color: #64748b;
+}
+
+.profileButton {
+width: 42px;
+height: 42px;
+border: 1px solid #e2e8f0;
+border-radius: 50%;
+background: #f8fafc;
+font-size: 18px;
+cursor: pointer;
+transition: 0.2s ease;
+}
+
+.profileButton:hover {
+background: #eff6ff;
+border-color: #bfdbfe;
+transform: translateY(-1px);
+}
+
+/* ================================
+HERO
+================================ */
+
+.hero {
+min-height: 610px;
+display: grid;
+grid-template-columns: 1.05fr 0.95fr;
+align-items: center;
+gap: 70px;
+max-width: 1240px;
+margin: 0 auto;
+padding: 75px 6% 85px;
+}
+
+.heroContent {
+max-width: 620px;
+}
+
+.badge {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 9px 15px;
+border-radius: 999px;
+background: #eff6ff;
+border: 1px solid #dbeafe;
+color: #2563eb;
+font-size: 13px;
+font-weight: 700;
+margin-bottom: 24px;
+}
+
+.hero h1 {
+margin: 0;
+font-size: clamp(44px, 5vw, 68px);
+line-height: 1.03;
+letter-spacing: -2.8px;
+font-weight: 800;
+color: #172033;
+}
+
+.hero h1 span {
+color: #2563eb;
+}
+
+.heroContent > p {
+max-width: 570px;
+margin: 25px 0 0;
+font-size: 18px;
+line-height: 1.75;
+color: #64748b;
+}
+
+/* ================================
+FIND BUTTON
+================================ */
+
+.findButton {
+margin-top: 34px;
+display: inline-flex;
+align-items: center;
+gap: 13px;
+min-height: 58px;
+padding: 0 23px;
+border: none;
+border-radius: 14px;
+background: #2563eb;
+color: white;
+font-size: 15px;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
+transition:
+transform 0.2s ease,
+box-shadow 0.2s ease,
+background 0.2s ease;
+}
+
+.findButton:hover {
+background: #1d4ed8;
+transform: translateY(-2px);
+box-shadow: 0 16px 34px rgba(37, 99, 235, 0.28);
+}
+
+.findButton:active {
+transform: translateY(0);
+}
+
+.findButton strong {
+font-size: 20px;
+margin-left: 5px;
+}
+
+/* ================================
+MESSAGE
+================================ */
+
+.message {
+margin-top: 18px;
+display: flex;
+align-items: center;
+gap: 10px;
+color: #64748b;
+font-size: 14px;
+font-weight: 500;
+}
+
+.spinner {
+width: 17px;
+height: 17px;
+border: 2px solid #dbeafe;
+border-top-color: #2563eb;
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+to {
+transform: rotate(360deg);
+}
+}
+
+/* ================================
+RIGHT VISUAL
+================================ */
+
+.visual {
+min-height: 450px;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.circle {
+width: 390px;
+height: 390px;
+border-radius: 50%;
+background:
+radial-gradient(
+circle at 35% 30%,
+#dbeafe,
+#bfdbfe 45%,
+#eff6ff 72%,
+transparent 73%
+);
+position: absolute;
+opacity: 0.9;
+}
+
+/* Main floating tutor card */
+
+.tutorCard {
+width: 350px;
+min-height: 105px;
+padding: 22px;
+display: flex;
+align-items: center;
+gap: 15px;
+position: relative;
+z-index: 2;
+background: rgba(255, 255, 255, 0.96);
+border: 1px solid rgba(255, 255, 255, 0.8);
+border-radius: 20px;
+box-shadow: 0 25px 60px rgba(15, 23, 42, 0.13);
+animation: floatCard 4s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+0%,
+100% {
+transform: translateY(0);
+}
+
+50% {
+transform: translateY(-9px);
+}
+}
+
+.tutorAvatar {
+width: 58px;
+height: 58px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+border-radius: 16px;
+background: #eff6ff;
+font-size: 27px;
+}
+
+.tutorInfo {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.tutorInfo strong {
+font-size: 15px;
+color: #172033;
+}
+
+.tutorInfo span {
+font-size: 12px;
+color: #64748b;
+}
+
+.check {
+width: 28px;
+height: 28px;
+margin-left: auto;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+background: #dcfce7;
+color: #16a34a;
+font-size: 14px;
+font-weight: 800;
+}
+
+/* Location floating card */
+
+.locationCard {
+position: absolute;
+z-index: 3;
+bottom: 42px;
+left: 8px;
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 17px 20px;
+background: white;
+border: 1px solid #e8edf3;
+border-radius: 16px;
+box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+.locationCard > span {
+width: 40px;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 12px;
+background: #eff6ff;
+font-size: 18px;
+}
+
+.locationCard div {
+display: flex;
+flex-direction: column;
+gap: 3px;
+}
+
+.locationCard strong {
+font-size: 13px;
+color: #172033;
+}
+
+.locationCard small {
+font-size: 11px;
+color: #94a3b8;
+}
+
+/* ================================
+FEATURES
+================================ */
+
+.features {
+padding: 95px 6% 110px;
+background: white;
+border-top: 1px solid #eef2f7;
+}
+
+.sectionHeading {
+max-width: 650px;
+margin: 0 auto 55px;
+text-align: center;
+}
+
+.sectionHeading > span {
+display: inline-block;
+margin-bottom: 12px;
+color: #2563eb;
+font-size: 12px;
+font-weight: 800;
+letter-spacing: 2px;
+}
+
+.sectionHeading h2 {
+margin: 0;
+font-size: 38px;
+letter-spacing: -1.4px;
+color: #172033;
+}
+
+.sectionHeading p {
+margin: 15px auto 0;
+max-width: 520px;
+color: #64748b;
+line-height: 1.7;
+}
+
+/* Feature cards */
+
+.featureGrid {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 22px;
+}
+
+.featureCard {
+padding: 32px 28px;
+border: 1px solid #e8edf3;
+border-radius: 20px;
+background: #ffffff;
+transition:
+transform 0.25s ease,
+box-shadow 0.25s ease,
+border-color 0.25s ease;
+}
+
+.featureCard:hover {
+transform: translateY(-5px);
+border-color: #dbeafe;
+box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.featureIcon {
+width: 52px;
+height: 52px;
+margin-bottom: 22px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 15px;
+background: #eff6ff;
+font-size: 23px;
+}
+
+.featureCard h3 {
+margin: 0;
+font-size: 18px;
+color: #172033;
+}
+
+.featureCard p {
+margin: 10px 0 0;
+color: #64748b;
+font-size: 14px;
+line-height: 1.65;
+}
+
+/* ================================
+TABLET
+================================ */
+
+@media (max-width: 900px) {
+.hero {
+grid-template-columns: 1fr;
+gap: 35px;
+padding-top: 60px;
+}
+
+.heroContent {
+max-width: 700px;
+margin: 0 auto;
+text-align: center;
+}
+
+.heroContent > p {
+margin-left: auto;
+margin-right: auto;
+}
+
+.visual {
+min-height: 390px;
+}
+
+.featureGrid {
+grid-template-columns: 1fr;
+max-width: 600px;
+}
+}
+
+/* ================================
+MOBILE
+================================ */
+
+@media (max-width: 600px) {
+.header {
+height: 68px;
+padding: 0 18px;
+}
+
+.logo {
+font-size: 21px;
+}
+
+.welcome {
+display: none;
+}
+
+.profileButton {
+width: 38px;
+height: 38px;
+}
+
+.hero {
+min-height: auto;
+padding: 48px 20px 60px;
+}
+
+.badge {
+margin-bottom: 18px;
+font-size: 11px;
+}
+
+.hero h1 {
+font-size: 43px;
+letter-spacing: -1.8px;
+}
+
+.heroContent > p {
+margin-top: 20px;
+font-size: 15px;
+line-height: 1.65;
+}
+
+.findButton {
+width: 100%;
+justify-content: center;
+margin-top: 27px;
+}
+
+.visual {
+min-height: 330px;
+margin-top: 10px;
+}
+
+.circle {
+width: 285px;
+height: 285px;
+}
+
+.tutorCard {
+width: calc(100% - 20px);
+max-width: 330px;
+padding: 17px;
+}
+
+.tutorAvatar {
+width: 50px;
+height: 50px;
+}
+
+.locationCard {
+bottom: 15px;
+left: 50%;
+transform: translateX(-50%);
+width: max-content;
+max-width: calc(100% - 30px);
+}
+
+.features {
+padding: 65px 20px 75px;
+}
+
+.sectionHeading {
+margin-bottom: 35px;
+}
+
+.sectionHeading h2 {
+font-size: 30px;
+}
+
+.sectionHeading p {
+font-size: 14px;
+}
+
+.featureGrid {
+gap: 15px;
+}
+
+.featureCard {
+padding: 25px 22px;
+}
+}
+
+/* ================================
+SMALL MOBILE
+================================ */
+
+@media (max-width: 380px) {
+.hero h1 {
+font-size: 38px;
+}
+
+.tutorCard {
+width: 100%;
+}
+
+.locationCard {
+font-size: 12px;
+}
+}
+
+/* ================================
+   NEARBY TUTORS
+================================ */
+
+.tutorsSection {
+  padding: 90px 6% 100px;
+  background: #f8fafc;
+  border-top: 1px solid #e8edf3;
+}
+
+.tutorGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.tutorResultCard {
+  background: white;
+  border: 1px solid #e5eaf0;
+  border-radius: 22px;
+  padding: 25px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
+  transition: 0.25s ease;
+}
+
+.tutorResultCard:hover {
+  transform: translateY(-4px);
+  border-color: #bfdbfe;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+}
+
+.tutorTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.resultAvatar {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  border-radius: 16px;
+  font-size: 27px;
+}
+
+.tutorTop h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #172033;
+}
+
+.tutorTop span {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.rating {
+  margin-left: auto;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tutorDetails {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tutorDetails > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 11px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.tutorDetails span {
+  font-size: 14px;
+}
+
+.tutorDetails p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #475569;
+}
+
+.tutorBottom {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fee {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.fee strong {
+  font-size: 21px;
+  color: #172033;
+}
+
+.fee span {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.viewButton {
+  border: none;
+  border-radius: 11px;
+  padding: 11px 16px;
+  background: #2563eb;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.viewButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   MOBILE — TUTOR RESULTS
+================================ */
+
+@media (max-width: 700px) {
+
+  .tutorsSection {
+    padding: 65px 20px 75px;
+  }
+
+  .tutorGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tutorResultCard {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .tutorDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .tutorBottom {
+    gap: 12px;
+  }
+
+  .viewButton {
+    padding: 10px 13px;
+  }
+
+}
