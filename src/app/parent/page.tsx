@@ -524,14 +524,7 @@ useEffect(() => {
   >
     👤
   </button>
-          <button
-            type="button"
-            className={styles.profileButton}
-            onClick={handleLogout}
-            title="Logout"
-          >
-            👤
-          </button>
+         
 
           <button
             type="button"

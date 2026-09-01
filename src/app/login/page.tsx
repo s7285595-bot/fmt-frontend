@@ -143,9 +143,12 @@ export default function LoginPage() {
                   Password
                 </label>
 
-                <span>
-                  Forgot password?
-                </span>
+      <Link
+  href="/forgot-password"
+  className={styles.forgotPassword}
+>
+  Forgot password?
+</Link>
               </div>
 
               <input
