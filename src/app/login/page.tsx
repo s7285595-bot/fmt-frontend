@@ -35,13 +35,15 @@ export default function LoginPage() {
 
       const role = payload.role;
 
-      if (role === "TUTOR") {
-        router.push("/tutor");
-      } else if (role === "PARENT") {
-        router.push("/parent");
-      } else {
-        setError("Unknown user role");
-      }
+    if (role === "ADMIN") {
+  router.push("/admin");
+} else if (role === "TUTOR") {
+  router.push("/tutor");
+} else if (role === "PARENT") {
+  router.push("/parent");
+} else {
+  setError("Unknown user role");
+}
     } catch (error) {
       setError(
         error instanceof Error

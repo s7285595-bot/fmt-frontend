@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRole?: "PARENT" | "TUTOR";
+  allowedRole?: "PARENT" | "TUTOR" | "ADMIN";
 }
 
 export default function ProtectedRoute({
@@ -19,7 +18,7 @@ export default function ProtectedRoute({
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // No token → go to login
+    // No token → login
     if (!token) {
       router.replace("/login");
       return;
@@ -32,7 +31,7 @@ export default function ProtectedRoute({
 
       const role = payload.role;
 
-      // Role doesn't match → send to login
+      // Role doesn't match
       if (allowedRole && role !== allowedRole) {
         router.replace("/login");
         return;
@@ -40,7 +39,6 @@ export default function ProtectedRoute({
 
       setChecking(false);
     } catch {
-      // Invalid JWT
       localStorage.removeItem("token");
       router.replace("/login");
     }
@@ -63,4 +61,3 @@ export default function ProtectedRoute({
 
   return <>{children}</>;
 }
-

@@ -422,3 +422,807 @@ export async function updateTutorProfile(
 
   return result;
 }
+/* =========================
+   ADMIN - PENDING TUTORS
+========================= */
+
+export async function getPendingTutors() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/admin/tutors/pending`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Failed to fetch pending tutors."
+    );
+  }
+
+  return Array.isArray(result) ? result : [];
+}
+
+
+/* =========================
+   ADMIN - APPROVE TUTOR
+========================= */
+
+export async function approveTutor(userId: number) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/admin/tutors/${userId}/approve`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      text || "Failed to approve tutor."
+    );
+  }
+
+  return text;
+}
+
+
+/* =========================
+   ADMIN - REJECT TUTOR
+========================= */
+
+export async function rejectTutor(userId: number) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/admin/tutors/${userId}/reject`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      text || "Failed to reject tutor."
+    );
+  }
+
+  return text;
+}
+
+
+/* =========================
+   ADMIN - ALL USERS
+========================= */
+
+export async function getAllUsers() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/admin/users`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Failed to fetch users."
+    );
+  }
+
+  return Array.isArray(result) ? result : [];
+}
+
+
+/* =========================
+   ADMIN - SUSPEND USER
+========================= */
+
+export async function suspendUser(userId: number) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/admin/users/${userId}/suspend`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      text || "Failed to suspend user."
+    );
+  }
+
+  return text;
+}
+
+
+/* =========================
+   ADMIN - BLOCK USER
+========================= */
+
+export async function blockUser(userId: number) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/admin/users/${userId}/block`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      text || "Failed to block user."
+    );
+  }
+
+  return text;
+}
+
+
+
+export async function createTutorRequest(
+  tutorId: number,
+  data: {
+    subject: string;
+    requestedDate: string;
+    requestedTime: string;
+    hours: number;
+    message: string;
+  }
+) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/requests/tutor/${tutorId}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  console.log(
+    "CREATE REQUEST STATUS:",
+    response.status
+  );
+
+  console.log(
+    "CREATE REQUEST RESPONSE:",
+    result
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Failed to send tutor request."
+    );
+  }
+
+  return result;
+}
+
+
+
+/* =========================
+   PARENT - MY REQUESTS
+========================= */
+
+export async function getParentRequests() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/requests/parent`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  console.log(
+    "PARENT REQUESTS STATUS:",
+    response.status
+  );
+
+  console.log(
+    "PARENT REQUESTS:",
+    result
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Unable to fetch parent requests."
+    );
+  }
+
+  return Array.isArray(result)
+    ? result
+    : [];
+}
+export async function getTutorRequests() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/requests/tutor`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(
+      message || "Unable to fetch tutor requests."
+    );
+  }
+
+  return response.json();
+}
+
+export async function acceptTutorRequest(
+  requestId: number
+) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/requests/${requestId}/accept`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(
+      message || "Unable to accept request."
+    );
+  }
+
+  return response.text();
+}
+
+export async function rejectTutorRequest(
+  requestId: number
+) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/requests/${requestId}/reject`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(
+      message || "Unable to reject request."
+    );
+  }
+
+  return response.text();
+}
+/* =========================
+   PARENT - MY SESSIONS
+========================= */
+
+export async function getParentSessions() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/sessions/parent`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Unable to fetch your sessions."
+    );
+  }
+
+  return Array.isArray(result) ? result : [];
+}
+
+
+/* =========================
+   TUTOR - MY SESSIONS
+========================= */
+
+export async function getTutorSessions() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/sessions/tutor`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Unable to fetch your sessions."
+    );
+  }
+
+  return Array.isArray(result) ? result : [];
+}
+/* =========================
+   PARENT - PAY FOR SESSION
+========================= */
+
+export async function payForSession(sessionId: number) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/payments/session/${sessionId}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Payment failed."
+    );
+  }
+
+  return result;
+}
+/* =========================
+   CHAT - GET MESSAGES
+========================= */
+
+export async function getChatMessages(sessionId: number) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/chat/${sessionId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Failed to load messages."
+    );
+  }
+
+  return Array.isArray(result) ? result : [];
+}
+
+/* =========================
+   CHAT - SEND MESSAGE
+========================= */
+
+export async function sendChatMessage(
+  sessionId: number,
+  message: string
+) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/chat/${sessionId}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        message,
+      }),
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Failed to send message."
+    );
+  }
+
+  return result;
+}
+
+
+/* =========================
+   CHAT - UNREAD MESSAGE COUNT
+========================= */
+
+export async function getUnreadMessageCount(): Promise<number> {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/chat/unread/count`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim()
+      ? JSON.parse(text)
+      : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message ||
+          "Failed to get unread message count."
+    );
+  }
+
+  return Number(result?.count ?? 0);
+}
+
+
+/* =========================
+   CHAT - MARK MESSAGES READ
+========================= */
+
+export async function markChatMessagesAsRead(
+  sessionId: number
+): Promise<void> {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/chat/${sessionId}/read`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      text || "Failed to mark messages as read."
+    );
+  }
+}
+export async function continueWithTutor(
+  sessionId: number,
+  data: {
+    subject: string;
+    sessionDate: string;
+    sessionTime: string;
+    hours: number;
+  }
+) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Please login again.");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/requests/session/${sessionId}/continue`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        subject: data.subject,
+        requestedDate: data.sessionDate,
+        requestedTime: data.sessionTime,
+        hours: data.hours,
+      }),
+    }
+  );
+
+  const text = await response.text();
+
+  let result: any = null;
+
+  try {
+    result = text.trim() ? JSON.parse(text) : null;
+  } catch {
+    result = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      typeof result === "string"
+        ? result
+        : result?.message || "Unable to continue with tutor"
+    );
+  }
+
+  return result;
+}

@@ -1,0 +1,297 @@
+css
+.page {
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  height: 72px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.backButton {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #f1f5f9;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background: #e2e8f0;
+}
+
+.tutorInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.tutorInfo h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.tutorInfo span {
+  font-size: 12px;
+  color: #64748b;
+}
+
+
+/* =========================
+   CHAT CONTAINER
+========================= */
+
+.chatContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 72px);
+  background: white;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 24px;
+  background: #f8fafc;
+}
+
+.messageRow {
+  display: flex;
+  margin-bottom: 14px;
+}
+
+.myMessageRow {
+  justify-content: flex-end;
+}
+
+.theirMessageRow {
+  justify-content: flex-start;
+}
+
+.messageBubble {
+  max-width: 70%;
+  padding: 11px 15px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.myMessage {
+  background: #2563eb;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.theirMessage {
+  background: white;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-bottom-left-radius: 4px;
+}
+
+.senderName {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #2563eb;
+}
+
+.messageBubble p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.time {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  opacity: 0.7;
+  text-align: right;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.emptyIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.empty h3 {
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.empty p {
+  margin: 0;
+  color: #64748b;
+  max-width: 350px;
+  font-size: 14px;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.centerMessage {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+  padding: 20px;
+  text-align: center;
+  color: #dc2626;
+}
+
+.errorBar {
+  padding: 10px 20px;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 13px;
+  border-top: 1px solid #fecaca;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.inputArea {
+  min-height: 72px;
+  padding: 14px 18px;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 10px;
+}
+
+.inputArea input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  border: 1px solid #cbd5e1;
+  border-radius: 23px;
+  padding: 0 18px;
+  font-size: 14px;
+  outline: none;
+}
+
+.inputArea input:focus {
+  border-color: #2563eb;
+}
+
+.inputArea button {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.inputArea button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .header {
+    padding: 0 14px;
+    height: 64px;
+  }
+
+  .chatContainer {
+    height: calc(100vh - 64px);
+  }
+
+  .messages {
+    padding: 20px 12px;
+  }
+
+  .messageBubble {
+    max-width: 82%;
+  }
+
+  .inputArea {
+    padding: 10px;
+  }
+
+}
+

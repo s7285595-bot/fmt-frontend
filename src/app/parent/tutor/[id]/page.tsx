@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import { getTutorById } from "@/lib/api";
+import { getTutorById, createTutorRequest, } from "@/lib/api";
+
+
 
 type Tutor = {
 id: number;
@@ -27,7 +29,29 @@ const router = useRouter();
 const [tutor, setTutor] = useState<Tutor | null>(null);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState("");
+const [showRequestForm, setShowRequestForm] =
+  useState(false);
 
+const [subject, setSubject] = useState("");
+
+const [requestedDate, setRequestedDate] =
+  useState("");
+
+const [requestedTime, setRequestedTime] =
+  useState("");
+
+const [hours, setHours] = useState(1);
+
+const [message, setMessage] = useState("");
+
+const [requestLoading, setRequestLoading] =
+  useState(false);
+
+const [requestError, setRequestError] =
+  useState("");
+
+const [requestSuccess, setRequestSuccess] =
+  useState("");
 useEffect(() => {
 async function loadTutor() {
 try {
@@ -164,6 +188,48 @@ tutor.teachingMode === "ONLINE"
 ? "Home Classes"
 : "Online & Home Classes";
 
+
+
+async function handleRequestSubmit(
+  event: React.FormEvent<HTMLFormElement>
+) {
+  event.preventDefault();
+
+  if (!tutor) return;
+
+  setRequestLoading(true);
+  setRequestError("");
+  setRequestSuccess("");
+
+  try {
+    await createTutorRequest(tutor.id, {
+      subject,
+      requestedDate,
+      requestedTime,
+      hours,
+      message,
+    });
+
+    setRequestSuccess(
+      "Your session request has been sent to the tutor!"
+    );
+
+    setSubject("");
+    setRequestedDate("");
+    setRequestedTime("");
+    setHours(1);
+    setMessage("");
+
+  } catch (err) {
+    setRequestError(
+      err instanceof Error
+        ? err.message
+        : "Failed to send request."
+    );
+  } finally {
+    setRequestLoading(false);
+  }
+}
 return ( <main className={styles.page}> <header className={styles.header}>
 <div
 className={styles.logo}
@@ -586,21 +652,133 @@ Find<span>MyTutor</span> </div>
             </div>
           )}
 
-          <button
-            type="button"
-            className={
-              styles.contactButton
-            }
-            onClick={() =>
-              alert(
-                "Booking feature will be available soon."
-              )
-            }
-          >
-            Request a Session
+         <button
+  type="button"
+  className={styles.contactButton}
+  onClick={() => {
+    setShowRequestForm(!showRequestForm);
+    setRequestError("");
+    setRequestSuccess("");
+  }}
+>
+  {showRequestForm
+    ? "Close Request Form"
+    : "Request a Session"}
 
-            <span>→</span>
-          </button>
+  <span>→</span>
+</button>
+{showRequestForm && (
+  <div className={styles.requestForm}>
+
+    <h3>Request a Session</h3>
+
+    <p>
+      Send your learning requirements to{" "}
+      <strong>{tutor.name}</strong>.
+    </p>
+
+    <form onSubmit={handleRequestSubmit}>
+
+      {/* Subject */}
+      <div className={styles.formGroup}>
+        <label>Subject</label>
+
+        <input
+          type="text"
+          value={subject}
+          onChange={(e) =>
+            setSubject(e.target.value)
+          }
+          placeholder="e.g. Java"
+          required
+        />
+      </div>
+
+      {/* Date */}
+      <div className={styles.formGroup}>
+        <label>Preferred Date</label>
+
+        <input
+          type="date"
+          value={requestedDate}
+          onChange={(e) =>
+            setRequestedDate(e.target.value)
+          }
+          required
+        />
+      </div>
+
+      {/* Time */}
+      <div className={styles.formGroup}>
+        <label>Preferred Time</label>
+
+        <input
+          type="time"
+          value={requestedTime}
+          onChange={(e) =>
+            setRequestedTime(e.target.value)
+          }
+          required
+        />
+      </div>
+
+      {/* Hours */}
+      <div className={styles.formGroup}>
+        <label>Number of Hours</label>
+
+        <input
+          type="number"
+          min="1"
+          max="12"
+          value={hours}
+          onChange={(e) =>
+            setHours(Number(e.target.value))
+          }
+          required
+        />
+      </div>
+
+      {/* Message */}
+      <div className={styles.formGroup}>
+        <label>Message</label>
+
+        <textarea
+          value={message}
+          onChange={(e) =>
+            setMessage(e.target.value)
+          }
+          placeholder="Tell the tutor what you want to learn..."
+          rows={4}
+        />
+      </div>
+
+      {/* Error */}
+      {requestError && (
+        <div className={styles.requestError}>
+          {requestError}
+        </div>
+      )}
+
+      {/* Success */}
+      {requestSuccess && (
+        <div className={styles.requestSuccess}>
+          {requestSuccess}
+        </div>
+      )}
+
+      <button
+        type="submit"
+        className={styles.sendRequestButton}
+        disabled={requestLoading}
+      >
+        {requestLoading
+          ? "Sending..."
+          : "Send Request →"}
+      </button>
+
+    </form>
+  </div>
+)}
 
           <p
             className={
