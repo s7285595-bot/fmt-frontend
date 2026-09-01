@@ -241,11 +241,9 @@ const currentUserEmail =
             </div>
           ) : (
             messages.map((msg) => {
-
-              const isMine =
-                currentUserId !== null &&
-                Number(msg.senderId) ===
-                  currentUserId;
+const isMine =
+  currentUserEmail !== null &&
+  msg.senderEmail === currentUserEmail;
 
               return (
                 <div
